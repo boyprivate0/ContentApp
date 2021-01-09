@@ -1,0 +1,17 @@
+@import "src/@fuse/scss/fuse";
+
+#order {
+
+    .header {
+
+        .subtitle {
+            margin: 6px 0 0 0;
+        }
+    }
+
+    .list-view-container {
+        display: flex; 
+        justify-content: center; 
+        margin-top: 100px;
+    }
+}
