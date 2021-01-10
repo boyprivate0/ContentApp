@@ -1,17 +1,19 @@
 @import "src/@fuse/scss/fuse";
 
-#order {
+.header {
 
-    .header {
-
-        .subtitle {
-            margin: 6px 0 0 0;
-        }
+    .subtitle {
+        margin: 6px 0 0 0;
     }
+}
 
-    .list-view-container {
-        display: flex; 
-        justify-content: center; 
-        margin-top: 100px;
-    }
+.list-view-container {
+    display: flex; 
+    justify-content: center; 
+    margin-top: 100px;
+    overflow-y: scroll;
+}
+
+app-list-view-component {
+    min-width: 500px;    
 }

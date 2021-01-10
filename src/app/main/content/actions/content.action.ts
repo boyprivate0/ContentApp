@@ -1,33 +1,26 @@
 import { CONTENT } from '../models/content';
 
-export class AddContent {
+export class addContent {
     static readonly type = '[CONTENT] Add';
 
     constructor(public payload: CONTENT) {
     }
 }
 
-export class GetContents {
-    static readonly type = '[CONTENT] Get';
+export class getContents {
+    static readonly type = '[CONTENTS] Get';
 }
 
-export class UpdateContent {
+export class updateContent {
     static readonly type = '[CONTENT] Update';
 
-    constructor(public payload: CONTENT, public id: number) {
+    constructor(public payload: CONTENT, public id: string) {
     }
 }
 
-export class DeleteContent {
-    static readonly type = '[CONTENT] Delete';
+export class getContent {
+    static readonly type = '[CONTENT] Get';
 
-    constructor(public id: number) {
-    }
-}
-
-export class SetSelectedContent {
-    static readonly type = '[CONTENT] Set';
-
-    constructor(public payload: CONTENT) {
+    constructor(public id: string) {
     }
 }

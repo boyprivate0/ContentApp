@@ -1,16 +1,10 @@
 <div id="order" class="page-layout carded fullwidth inner-scroll">
 
-    <!-- TOP BACKGROUND -->
     <div class="top-bg accent"></div>
-    <!-- / TOP BACKGROUND -->
-
-    <!-- CENTER -->
     <div class="center">
 
-        <!-- HEADER -->
         <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
 
-            <!-- APP TITLE -->
             <div fxLayout="row" fxLayoutAlign="start center">
 
                 <div fxLayout="column" fxLayoutAlign="start start"
@@ -20,19 +14,13 @@
                     </div>
                 </div>
             </div>
-            <!-- / APP TITLE -->
 
         </div>
-        <!-- / HEADER -->
 
-        <!-- CONTENT CARD -->
-        <!-- <div class="content-card"> -->
         <div class="list-view-container">
-            <app-list-view-component [cardItems]="cardItems"></app-list-view-component>
+            <app-list-view-component (editItemEvent)="editItem($event)" [cardItems]="contents | async ">
+            </app-list-view-component>
         </div>
-        <!-- CONTENT -->
-
-        <!-- </div> -->
 
     </div>
 </div>

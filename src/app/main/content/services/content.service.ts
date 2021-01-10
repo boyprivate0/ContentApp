@@ -12,6 +12,10 @@ export class ContentService {
     }
 
     getContents() {
-        return this.http.get<CONTENT[]>(`${environment.API_URL}/my/content`);
+        return this.http.get<any>(`${environment.API_URL}/my/content`);
+    }
+
+    getContent(id: string) {
+        return this.http.get<any>(`${environment.API_URL}/my/content/${id}/text`);
     }
 }
