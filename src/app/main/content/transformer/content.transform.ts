@@ -1,6 +1,6 @@
-import { CONTENT } from './../models/content';
+import { Content } from './../models/content';
 export function transformData(rows: []) {
-    let contentArr: CONTENT[] = [];
+    let contentArr: Content[] = [];
 
     contentArr = rows.map((row: any) => {
         return {

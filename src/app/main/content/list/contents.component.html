@@ -1,0 +1,76 @@
+<div id="orders" class="page-layout carded fullwidth inner-scroll">
+
+    <div class="top-bg accent"></div>
+
+    <div class="center">
+
+        <div class="header accent" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+            fxLayoutAlign.gt-xs="space-between center">
+
+            <div class="logo mb-24 mb-sm-0" fxLayout="row" fxLayoutAlign="start center">
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Contents</span>
+            </div>
+
+        </div>
+
+        <div class="content-card">
+
+            <mat-table class="orders-table" #table [dataSource]="contents | async" matSort
+                [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+                    <mat-cell *matCellDef="let order">
+                        <p class="text-truncate">{{order.id}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Name</mat-header-cell>
+                    <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
+                        <p class="text-truncate">{{order.name}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="title">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
+                    <mat-cell *matCellDef="let order">
+                        <p class="text-truncate">
+                            {{order.title ? order.title : 'none'}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="type">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-md>Type</mat-header-cell>
+                    <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
+                        <p class="text-truncate">
+                            {{order.type }}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                    <mat-cell *matCellDef="let order">
+                        <p class="status text-truncate h6 p-4"
+                            [ngClass]="(order.status !== 'draft') ? 'primary':'warn'">
+                            {{order.status }}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+
+                <mat-row *matRowDef="let order; columns: displayedColumns;" class="order" matRipple
+                    [routerLink]="'/contents/'+order.id">
+                </mat-row>
+            </mat-table>
+
+            <mat-paginator #paginator [length]="(contents | async).length" [pageIndex]="0" [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+
+        </div>
+    </div>
+</div>

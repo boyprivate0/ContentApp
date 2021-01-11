@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ContentService } from './../services/content.service';
 import { getContents, getContent } from './../actions/content.action';
-import { CONTENT } from './../models/content';
+import { Content } from './../models/content';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { transformData } from '../transformer/content.transform';
 
 export class ContentStateModel {
-    contents: CONTENT[];
+    contents: Content[];
 }
 
 @State<ContentStateModel>({

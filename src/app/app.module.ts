@@ -21,7 +21,7 @@ import { ContentModule } from 'app/main/content/content.module';
 const appRoutes: Routes = [
     {
         path: '**',
-        redirectTo: 'content'
+        redirectTo: 'contents'
     }
 ];
 

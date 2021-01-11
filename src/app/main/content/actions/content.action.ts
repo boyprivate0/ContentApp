@@ -1,9 +1,9 @@
-import { CONTENT } from '../models/content';
+import { Content } from '../models/content';
 
 export class addContent {
     static readonly type = '[CONTENT] Add';
 
-    constructor(public payload: CONTENT) {
+    constructor(public payload: Content) {
     }
 }
 
@@ -14,7 +14,7 @@ export class getContents {
 export class updateContent {
     static readonly type = '[CONTENT] Update';
 
-    constructor(public payload: CONTENT, public id: string) {
+    constructor(public payload: Content, public id: string) {
     }
 }
 

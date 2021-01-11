@@ -1,8 +1,8 @@
-import { getContent, getContents } from './actions/content.action';
+import { getContent, getContents } from '../actions/content.action';
 import { Select, Store } from '@ngxs/store';
-import { CONTENT } from './models/content';
+import { Content } from '../models/content';
 import { Observable } from 'rxjs';
-import { ContentState } from './states/content.state';
+import { ContentState } from '../states/content.state';
 import { Component } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 
@@ -13,7 +13,7 @@ import { fuseAnimations } from '@fuse/animations';
     animations: fuseAnimations
 })
 export class ContentComponent {
-    @Select(ContentState.getContentList) contents: Observable<CONTENT[]>;
+    @Select(ContentState.getContentList) contents: Observable<Content[]>;
 
     constructor(private store: Store) {
     }
