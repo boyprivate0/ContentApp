@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
     animations: fuseAnimations,
     encapsulation: ViewEncapsulation.None
 })
-export class ContentComponent implements OnInit{
+export class ContentComponent implements OnInit {
     @Select(ContentTextBlockState.getContentTextBlockList) contentTextBlocks: Observable<ContentTextBlock[]>;
     @Select(ContentTextBlockState.getTotalContentTextBlock) total: Observable<number>;
     private contentID: string;

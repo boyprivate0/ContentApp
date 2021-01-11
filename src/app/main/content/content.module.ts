@@ -28,7 +28,6 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AgmCoreModule } from '@agm/core';
 
-
 const routes = [
     {
         path: 'contents',
