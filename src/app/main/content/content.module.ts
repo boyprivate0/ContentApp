@@ -7,15 +7,16 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 
-import { ContentComponent } from './detail/content.component';
+import { ContentComponent } from './components/detail/content.component';
 import { ListViewModule } from '@bit/waqar_ali.philip-collection.list-view';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ContentState } from './states/content.state';
+import { ContentState } from './store/states/content.state';
+import { ContentTextBlockState } from './store/states/content-text-block.state';
 import { Interceptor } from './content.interceptor';
-import { ContentsComponent } from './list/contents.component';
+import { ContentsComponent } from './components/list/contents.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 
@@ -74,7 +75,8 @@ const routes = [
 
         HttpClientModule,
         NgxsModule.forRoot([
-            ContentState
+            ContentState,
+            ContentTextBlockState
         ])
     ],
     exports: [

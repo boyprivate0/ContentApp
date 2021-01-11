@@ -10,8 +10,8 @@ export class ContentService {
     constructor(private http: HttpClient) {
     }
 
-    getContents() {
-        return this.http.get<any>(`${environment.API_URL}/my/content`);
+    getContents(params: string) {
+        return this.http.get<any>(`${environment.API_URL}/my/content${params}`);
     }
 
     getContent(id: string) {

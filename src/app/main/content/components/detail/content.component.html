@@ -10,7 +10,7 @@
                 <div fxLayout="column" fxLayoutAlign="start start"
                     [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
                     <div class="h2">
-                        Content Listing
+                        Content Text-Blocks
                     </div>
                 </div>
             </div>
@@ -18,7 +18,7 @@
         </div>
 
         <div class="list-view-container">
-            <app-list-view-component (editItemEvent)="editItem($event)" [cardItems]="contents | async ">
+            <app-list-view-component (editItemEvent)="editItem($event)" [cardItems]="contentTextBlocks | async ">
             </app-list-view-component>
         </div>
 

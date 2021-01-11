@@ -1,14 +1,10 @@
-import { Content } from '../models/content';
-
-export class addContent {
-    static readonly type = '[CONTENT] Add';
-
-    constructor(public payload: Content) {
-    }
-}
+import { Content } from '../../models/content';
 
 export class getContents {
     static readonly type = '[CONTENTS] Get';
+
+    constructor(public params: string) {
+    }
 }
 
 export class updateContent {
