@@ -14,7 +14,16 @@ export class ContentService {
         return this.http.get<any>(`${environment.API_URL}/my/content${params}`);
     }
 
-    getContent(id: string) {
-        return this.http.get<any>(`${environment.API_URL}/my/content/${id}/text`);
+    getContent(id: string, params?: string) {
+        return this.http.get<any>(`${environment.API_URL}/my/content/${id}/text${params}`);
+    }
+
+    updateContentBlock(payload: {
+        content: {
+            type: string,
+            value: string
+        }
+    }, id: string) {
+        return this.http.post<any>(`${environment.API_URL}/my/content/${id}/text/${id}/update`, payload);
     }
 }

@@ -6,7 +6,7 @@
         <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
 
             <div fxLayout="row" fxLayoutAlign="start center">
-
+                <mat-icon class="cursor" [routerLink]="'/contents'">arrow_back</mat-icon>
                 <div fxLayout="column" fxLayoutAlign="start start"
                     [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
                     <div class="h2">
@@ -16,11 +16,17 @@
             </div>
 
         </div>
-
         <div class="list-view-container">
             <app-list-view-component (editItemEvent)="editItem($event)" [cardItems]="contentTextBlocks | async ">
             </app-list-view-component>
+
         </div>
+        <div class="text-center" *ngIf="(contentTextBlocks | async).length < totalCount">
+            <a (click)="loadMoreContentBlocks()" class="cursor">Load More</a>
+        </div>
+        <app-philip-dialog *ngIf="this.selectedBlock" (updatedData)="contentUpdate($event)" [modules]="modules"
+            [description]="this.selectedBlock.description" [title]="this.selectedBlock.title">
+        </app-philip-dialog>
 
     </div>
 </div>

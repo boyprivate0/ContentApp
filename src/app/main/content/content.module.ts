@@ -27,6 +27,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AgmCoreModule } from '@agm/core';
+import { PhilipEditorModule } from '@bit/waqar_ali.philip-collection.editor';
 
 const routes = [
     {
@@ -51,6 +52,7 @@ const routes = [
 
         FuseSharedModule,
         ListViewModule,
+        PhilipEditorModule,
         MatPaginatorModule,
         MatTableModule,
         MatButtonModule,

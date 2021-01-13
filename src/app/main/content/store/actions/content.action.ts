@@ -1,3 +1,4 @@
+import { ContentTextBlock } from './../../models/content-text-blocks';
 import { Content } from '../../models/content';
 
 export class getContents {
@@ -10,13 +11,13 @@ export class getContents {
 export class updateContent {
     static readonly type = '[CONTENT] Update';
 
-    constructor(public payload: Content, public id: string) {
+    constructor(public payload: ContentTextBlock, public id: string, public selectedIndex: number) {
     }
 }
 
 export class getContent {
     static readonly type = '[CONTENT] Get';
 
-    constructor(public id: string) {
+    constructor(public id: string, public params: string, public initialRequest = false) {
     }
 }

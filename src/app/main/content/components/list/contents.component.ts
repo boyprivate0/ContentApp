@@ -26,7 +26,7 @@ export class ContentsComponent implements OnInit {
     }
 
     ngOnInit() {
-       this.fetchContentList();
+        this.fetchContentList();
     }
 
     public getData($event) {
