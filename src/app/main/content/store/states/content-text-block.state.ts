@@ -9,13 +9,15 @@ import { transformContentData } from '../../transformer/content.transform';
 export class ContentTextBlockStateModel {
     contentTextBlocks: ContentTextBlock[];
     totalContentTextBlocks: number;
+    updatedBlock: ContentTextBlock;
 }
 
 @State<ContentTextBlockStateModel>({
     name: 'contentTextBlocks',
     defaults: {
         contentTextBlocks: [],
-        totalContentTextBlocks: 0
+        totalContentTextBlocks: 0,
+        updatedBlock: null
     }
 })
 @Injectable()
@@ -34,6 +36,11 @@ export class ContentTextBlockState {
         return state.totalContentTextBlocks;
     }
 
+    @Selector()
+    static updateContentBlock(state: ContentTextBlockStateModel) {
+        return state.updatedBlock;
+    }
+
     @Action(getContent)
     getContent({ getState, setState }: StateContext<ContentTextBlockStateModel>, payload) {
         return this.contentService.getContent(payload.id, payload.params).pipe(tap((result) => {
@@ -47,21 +54,31 @@ export class ContentTextBlockState {
     }
 
     @Action(updateContent)
-    setSelectedTodoId({ getState, setState }: StateContext<ContentTextBlockStateModel>, payload) {
+    updateContentBlock({ getState, setState }: StateContext<ContentTextBlockStateModel>, payload) {
+
+        const state = getState();
+        if (state.updatedBlock) {
+            setState({
+                ...state,
+                updatedBlock: null
+            });
+        }
+
         const data = {
+            code: payload.payload.title,
             content: {
-                type: payload.payload.title,
+                type: 'html',
                 value: payload.payload.description
             }
         }
 
         return this.contentService.updateContentBlock(data, payload.id).pipe(tap((result) => {
-            const state = getState();
             state.contentTextBlocks[payload.selectedIndex].description = payload.payload.description;
             state.contentTextBlocks[payload.selectedIndex].title = payload.payload.title;
             setState({
                 ...state,
-                contentTextBlocks: state.contentTextBlocks
+                contentTextBlocks: state.contentTextBlocks,
+                updatedBlock: state.contentTextBlocks[payload.selectedIndex]
             });
         }));
     }

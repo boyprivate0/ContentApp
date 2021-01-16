@@ -3,5 +3,6 @@ export interface ContentTextBlock {
     title: string;
     type?: string | null;
     description?: string | null;
+    text?: string | null;
     image?: string | null;
 }

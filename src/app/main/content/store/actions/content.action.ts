@@ -1,5 +1,4 @@
 import { ContentTextBlock } from './../../models/content-text-blocks';
-import { Content } from '../../models/content';
 
 export class getContents {
     static readonly type = '[CONTENTS] Get';

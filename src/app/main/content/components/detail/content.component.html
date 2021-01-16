@@ -25,7 +25,8 @@
             <a (click)="loadMoreContentBlocks()" class="cursor">Load More</a>
         </div>
         <app-philip-dialog *ngIf="this.selectedBlock" (updatedData)="contentUpdate($event)" [modules]="modules"
-            [description]="this.selectedBlock.description" [title]="this.selectedBlock.title">
+            [description]="this.selectedBlock.description" [text]="this.selectedBlock.text"
+            [title]="this.selectedBlock.title">
         </app-philip-dialog>
 
     </div>

@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'content',
@@ -19,6 +20,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ContentComponent implements OnInit {
     @Select(ContentTextBlockState.getContentTextBlockList) contentTextBlocks: Observable<ContentTextBlock[]>;
     @Select(ContentTextBlockState.getTotalContentTextBlock) total: Observable<number>;
+    @Select(ContentTextBlockState.updateContentBlock) updateContent: Observable<ContentTextBlock>;
     public modules = MODULE_CONFIG;
     public selectedBlock: ContentTextBlock = null;
     public defaultPageSize = 4;
@@ -27,11 +29,18 @@ export class ContentComponent implements OnInit {
     private contentID: string;
     private contentBlocks: ContentTextBlock[];
     private selectedIndex: number;
+    private horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+    private verticalPosition: MatSnackBarVerticalPosition = 'top';
 
-    constructor(private store: Store, private actRoute: ActivatedRoute) {
+    constructor(private store: Store, private actRoute: ActivatedRoute, private _snackBar: MatSnackBar) {
         this.contentID = this.actRoute.snapshot.params.id;
         this.contentTextBlocks.subscribe((contentBlocks) => {
             this.contentBlocks = contentBlocks;
+            this._snackBar.open('Text-blocks fetched successfully', 'x', {
+                duration: 2000,
+                horizontalPosition: this.horizontalPosition,
+                verticalPosition: this.verticalPosition,
+            });
         })
         this.total.subscribe((total) => {
             this.totalCount = total;
@@ -40,6 +49,14 @@ export class ContentComponent implements OnInit {
 
     ngOnInit() {
         this.fetchContentBlockList();
+        this.updateContent.subscribe((block) => {
+            if (!block) return;
+            this._snackBar.open('Text-block updated successfully', 'x', {
+                duration: 2000,
+                horizontalPosition: this.horizontalPosition,
+                verticalPosition: this.verticalPosition,
+            });
+        })
     }
 
     public editItem(id: string) {
