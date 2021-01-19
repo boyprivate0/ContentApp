@@ -1,15 +1,16 @@
 import { ContentTextBlock } from '../../models/content-text-blocks';
 import { Injectable } from '@angular/core';
 import { ContentService } from '../../services/content.service';
-import { getContent, updateContent } from '../../store/actions/content.action';
+import { getContent, getContentImages, updateContent } from '../../store/actions/content.action';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
-import { transformContentData } from '../../transformer/content.transform';
+import { transformContentData, transformContentImagesData } from '../../transformer/content.transform';
 
 export class ContentTextBlockStateModel {
     contentTextBlocks: ContentTextBlock[];
     totalContentTextBlocks: number;
     updatedBlock: ContentTextBlock;
+    contentImages: string[]
 }
 
 @State<ContentTextBlockStateModel>({
@@ -17,7 +18,8 @@ export class ContentTextBlockStateModel {
     defaults: {
         contentTextBlocks: [],
         totalContentTextBlocks: 0,
-        updatedBlock: null
+        updatedBlock: null,
+        contentImages: []
     }
 })
 @Injectable()
@@ -37,6 +39,11 @@ export class ContentTextBlockState {
     }
 
     @Selector()
+    static getContentImages(state: ContentTextBlockStateModel) {
+        return state.contentImages;
+    }
+
+    @Selector()
     static updateContentBlock(state: ContentTextBlockStateModel) {
         return state.updatedBlock;
     }
@@ -49,6 +56,17 @@ export class ContentTextBlockState {
                 ...state,
                 contentTextBlocks: payload.initialRequest ? transformContentData(result.rows) : [...state.contentTextBlocks, ...transformContentData(result.rows)],
                 totalContentTextBlocks: result.total
+            });
+        }));
+    }
+
+    @Action(getContentImages)
+    getContentImages({ getState, setState }: StateContext<ContentTextBlockStateModel>, payload) {
+        return this.contentService.getContentImages(payload.id, payload.textID).pipe(tap((result) => {
+            const state = getState();
+            setState({
+                ...state,
+                contentImages: transformContentImagesData(result.rows),
             });
         }));
     }

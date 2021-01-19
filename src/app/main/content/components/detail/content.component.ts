@@ -1,4 +1,4 @@
-import { updateContent } from './../../store/actions/content.action';
+import { getContentImages, updateContent } from './../../store/actions/content.action';
 import { MODULE_CONFIG } from './../../constants/editor.const';
 import { ContentTextBlockState } from './../../store/states/content-text-block.state';
 import { getContent } from '../../store/actions/content.action';
@@ -21,12 +21,14 @@ export class ContentComponent implements OnInit {
     @Select(ContentTextBlockState.getContentTextBlockList) contentTextBlocks: Observable<ContentTextBlock[]>;
     @Select(ContentTextBlockState.getTotalContentTextBlock) total: Observable<number>;
     @Select(ContentTextBlockState.updateContentBlock) updateContent: Observable<ContentTextBlock>;
+    @Select(ContentTextBlockState.getContentImages) contentImages: Observable<string[]>;
     public modules = MODULE_CONFIG;
     public selectedBlock: ContentTextBlock = null;
     public defaultPageSize = 4;
     public pageNo = 1;
     public totalCount = 0;
     private contentID: string;
+    public images: string[];
     private contentBlocks: ContentTextBlock[];
     private selectedIndex: number;
     private horizontalPosition: MatSnackBarHorizontalPosition = 'end';
@@ -57,11 +59,16 @@ export class ContentComponent implements OnInit {
                 verticalPosition: this.verticalPosition,
             });
         })
+
+        this.contentImages.subscribe((images) => {
+            this.images = images;
+            this.selectedBlock = this.contentBlocks[this.selectedIndex];
+        })
     }
 
     public editItem(id: string) {
+        this.store.dispatch(new getContentImages(this.contentID, id));
         this.selectedIndex = this.contentBlocks.findIndex(contentBlock => contentBlock.id === id);
-        this.selectedBlock = this.contentBlocks[this.selectedIndex];
     }
 
     public contentUpdate($event) {

@@ -18,6 +18,10 @@ export class ContentService {
         return this.http.get<any>(`${environment.API_URL}/my/content/${id}/text${params}`);
     }
 
+    getContentImages(id: string, textID: string) {
+        return this.http.get<any>(`${environment.API_URL}/my/content/${id}/text/${textID}/media?pageSize=100`);
+    }
+
     updateContentBlock(payload: {
         content: {
             type: string,

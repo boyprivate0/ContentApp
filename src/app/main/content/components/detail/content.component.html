@@ -26,7 +26,7 @@
         </div>
         <app-philip-dialog *ngIf="this.selectedBlock" (updatedData)="contentUpdate($event)" [modules]="modules"
             [description]="this.selectedBlock.description" [text]="this.selectedBlock.text"
-            [title]="this.selectedBlock.title">
+            [title]="this.selectedBlock.title" [images]="images" >
         </app-philip-dialog>
 
     </div>

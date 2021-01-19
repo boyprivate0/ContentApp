@@ -31,3 +31,13 @@ export function transformContentData(rows: []) {
 
     return contentTextBlockArr;
 }
+
+export function transformContentImagesData(rows: []) {
+    let contentTextBlockImagesArr: string[] = [];
+
+    contentTextBlockImagesArr = rows.map((row: any) => {
+        return row.data.url;
+    })
+
+    return contentTextBlockImagesArr;
+}

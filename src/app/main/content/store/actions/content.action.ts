@@ -20,3 +20,10 @@ export class getContent {
     constructor(public id: string, public params: string, public initialRequest = false) {
     }
 }
+
+export class getContentImages {
+    static readonly type = '[CONTENT-IMAGES] Get';
+
+    constructor(public id: string, public textID: string) {
+    }
+}
