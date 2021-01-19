@@ -36,21 +36,24 @@ export class ContentComponent implements OnInit {
 
     constructor(private store: Store, private actRoute: ActivatedRoute, private _snackBar: MatSnackBar) {
         this.contentID = this.actRoute.snapshot.params.id;
+    }
+
+    ngOnInit() {
+        this.fetchContentBlockList();
         this.contentTextBlocks.subscribe((contentBlocks) => {
             this.contentBlocks = contentBlocks;
+            if (!this.contentBlocks) return;
             this._snackBar.open('Text-blocks fetched successfully', 'x', {
                 duration: 2000,
                 horizontalPosition: this.horizontalPosition,
                 verticalPosition: this.verticalPosition,
             });
         })
+
         this.total.subscribe((total) => {
             this.totalCount = total;
         })
-    }
 
-    ngOnInit() {
-        this.fetchContentBlockList();
         this.updateContent.subscribe((block) => {
             if (!block) return;
             this._snackBar.open('Text-block updated successfully', 'x', {

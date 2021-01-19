@@ -1,3 +1,4 @@
+import { UploadService } from './../../services/upload.service';
 import { ContentTextBlock } from '../../models/content-text-blocks';
 import { Injectable } from '@angular/core';
 import { ContentService } from '../../services/content.service';
@@ -25,7 +26,7 @@ export class ContentTextBlockStateModel {
 @Injectable()
 export class ContentTextBlockState {
 
-    constructor(private contentService: ContentService) {
+    constructor(private contentService: ContentService, private uploadService: UploadService) {
     }
 
     @Selector()
@@ -89,6 +90,12 @@ export class ContentTextBlockState {
                 value: payload.payload.description
             }
         }
+
+        payload.payload.images.map((file) => {
+            this.uploadService.uploadFile(file).then(result => {
+                console.log("response", result);
+            })
+        })
 
         return this.contentService.updateContentBlock(data, payload.id).pipe(tap((result) => {
             state.contentTextBlocks[payload.selectedIndex].description = payload.payload.description;
