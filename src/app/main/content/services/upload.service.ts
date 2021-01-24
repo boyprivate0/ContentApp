@@ -12,15 +12,13 @@ export class UploadService {
   uploadFile(file): Promise<any> {
     const bucket = new S3(
       {
-          accessKeyId: environment.ACCESS_ID,
-          secretAccessKey: environment.ACCESS_KEY,
-          region: environment.REGION
+        accessKeyId: environment.ACCESS_ID,
+        secretAccessKey: environment.ACCESS_KEY,
+        region: environment.REGION
       }
-  );
-    // AWS.config.update({ accessKeyId: environment.ACCESS_ID, secretAccessKey: environment.ACCESS_KEY, region: environment.REGION });
+    );
 
     const contentType = file.type;
-    // const bucket = new AWS.S3({ params: { Bucket: environment.BUCKET } });
 
     const params = {
       Bucket: environment.BUCKET,

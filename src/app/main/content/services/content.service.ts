@@ -30,4 +30,12 @@ export class ContentService {
     }, id: string) {
         return this.http.post<any>(`${environment.API_URL}/my/content/${id}/text/${id}/update`, payload);
     }
+
+    uploadContentBlockImage(payload: {
+        url: string,
+        type: string,
+        title: string
+    }, id: string) {
+        return this.http.post<any>(`${environment.API_URL}/my/content/${id}/text/${id}/media`, payload);
+    }
 }

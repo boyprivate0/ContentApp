@@ -1,3 +1,4 @@
+import { environment } from './../../../../../environments/environment';
 import { UploadService } from './../../services/upload.service';
 import { ContentTextBlock } from '../../models/content-text-blocks';
 import { Injectable } from '@angular/core';
@@ -7,11 +8,13 @@ import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { transformContentData, transformContentImagesData } from '../../transformer/content.transform';
 
+
 export class ContentTextBlockStateModel {
     contentTextBlocks: ContentTextBlock[];
     totalContentTextBlocks: number;
     updatedBlock: ContentTextBlock;
-    contentImages: string[]
+    contentImages: string[];
+    error: string;
 }
 
 @State<ContentTextBlockStateModel>({
@@ -20,7 +23,8 @@ export class ContentTextBlockStateModel {
         contentTextBlocks: [],
         totalContentTextBlocks: 0,
         updatedBlock: null,
-        contentImages: []
+        contentImages: [],
+        error: ''
     }
 })
 @Injectable()
@@ -47,6 +51,11 @@ export class ContentTextBlockState {
     @Selector()
     static updateContentBlock(state: ContentTextBlockStateModel) {
         return state.updatedBlock;
+    }
+
+    @Selector()
+    static errorContentBlock(state: ContentTextBlockStateModel) {
+        return state.error;
     }
 
     @Action(getContent)
@@ -92,8 +101,29 @@ export class ContentTextBlockState {
         }
 
         payload.payload.images.map((file) => {
-            this.uploadService.uploadFile(file).then(result => {
-                console.log("response", result);
+            this.uploadService.uploadFile(file).then(resultURL => {
+                const fileData = {
+                    url: resultURL,
+                    type: "image",
+                    title: file.name
+                };
+                this.contentService.uploadContentBlockImage(fileData, payload.id).subscribe((result) => {
+                    state.contentTextBlocks[payload.selectedIndex].image =
+                        state.contentTextBlocks[payload.selectedIndex].image ?
+                            state.contentTextBlocks[payload.selectedIndex].image : resultURL;
+                    setState({
+                        ...state,
+                        contentTextBlocks: state.contentTextBlocks,
+                        updatedBlock: state.contentTextBlocks[payload.selectedIndex]
+                    });
+                });
+
+            }, (error) => {
+                const state = getState();
+                setState({
+                    ...state,
+                    error: `Error in uploading image ${file.name}`,
+                });
             })
         })
 

@@ -22,6 +22,8 @@ export class ContentComponent implements OnInit {
     @Select(ContentTextBlockState.getTotalContentTextBlock) total: Observable<number>;
     @Select(ContentTextBlockState.updateContentBlock) updateContent: Observable<ContentTextBlock>;
     @Select(ContentTextBlockState.getContentImages) contentImages: Observable<string[]>;
+    @Select(ContentTextBlockState.errorContentBlock) errorContentBlock: Observable<string>;
+
     public modules = MODULE_CONFIG;
     public selectedBlock: ContentTextBlock = null;
     public defaultPageSize = 4;
@@ -42,7 +44,7 @@ export class ContentComponent implements OnInit {
         this.fetchContentBlockList();
         this.contentTextBlocks.subscribe((contentBlocks) => {
             this.contentBlocks = contentBlocks;
-            if (!this.contentBlocks) return;
+            if (this.contentBlocks.length === 0) return;
             this._snackBar.open('Text-blocks fetched successfully', 'x', {
                 duration: 2000,
                 horizontalPosition: this.horizontalPosition,
@@ -66,6 +68,15 @@ export class ContentComponent implements OnInit {
         this.contentImages.subscribe((images) => {
             this.images = images;
             this.selectedBlock = this.contentBlocks[this.selectedIndex];
+        })
+
+        this.errorContentBlock.subscribe((errorMsg) => {
+            if (!errorMsg) return;
+            this._snackBar.open(errorMsg, 'x', {
+                duration: 2000,
+                horizontalPosition: this.horizontalPosition,
+                verticalPosition: this.verticalPosition,
+            });
         })
     }
 
