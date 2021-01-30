@@ -1,4 +1,4 @@
-import { getContentImages, updateContent } from './../../store/actions/content.action';
+import { getContentImages, updateContent, addContent, deleteContentImage } from './../../store/actions/content.action';
 import { MODULE_CONFIG } from './../../constants/editor.const';
 import { ContentTextBlockState } from './../../store/states/content-text-block.state';
 import { getContent } from '../../store/actions/content.action';
@@ -23,6 +23,7 @@ export class ContentComponent implements OnInit {
     @Select(ContentTextBlockState.updateContentBlock) updateContent: Observable<ContentTextBlock>;
     @Select(ContentTextBlockState.getContentImages) contentImages: Observable<string[]>;
     @Select(ContentTextBlockState.errorContentBlock) errorContentBlock: Observable<string>;
+    @Select(ContentTextBlockState.addContentBlock) addContentBlock: Observable<ContentTextBlock>;
 
     public modules = MODULE_CONFIG;
     public selectedBlock: ContentTextBlock = null;
@@ -31,6 +32,7 @@ export class ContentComponent implements OnInit {
     public totalCount = 0;
     private contentID: string;
     public images: string[];
+    public showAddNewBlock = false;
     private contentBlocks: ContentTextBlock[];
     private selectedIndex: number;
     private horizontalPosition: MatSnackBarHorizontalPosition = 'end';
@@ -65,6 +67,15 @@ export class ContentComponent implements OnInit {
             });
         })
 
+        this.addContentBlock.subscribe((block) => {
+            if (!block) return;
+            this._snackBar.open('Text-block added successfully', 'x', {
+                duration: 2000,
+                horizontalPosition: this.horizontalPosition,
+                verticalPosition: this.verticalPosition,
+            });
+        })
+
         this.contentImages.subscribe((images) => {
             this.images = images;
             this.selectedBlock = this.contentBlocks[this.selectedIndex];
@@ -86,12 +97,25 @@ export class ContentComponent implements OnInit {
     }
 
     public contentUpdate($event) {
-
         if ($event !== undefined) {
-            this.store.dispatch(new updateContent($event, this.selectedBlock.id, this.selectedIndex));
+            this.store.dispatch(new updateContent($event, this.contentID, this.selectedBlock.id, this.selectedIndex));
+            if ($event.removedImages && $event.removedImages.length > 0) {
+                $event.removedImages.map((imageID) => {
+                    this.store.dispatch(new deleteContentImage($event, this.contentID, this.selectedBlock.id, imageID));
+                })
+            }
         }
 
         this.selectedBlock = null;
+    }
+
+    public contentAdd($event) {
+
+        if ($event !== undefined) {
+            this.store.dispatch(new addContent($event, this.contentID));
+        }
+
+        this.showAddNewBlock = false;
     }
 
     public loadMoreContentBlocks() {
@@ -99,6 +123,9 @@ export class ContentComponent implements OnInit {
         this.store.dispatch(new getContent(this.contentID, `?pageSize=${this.defaultPageSize}&page=${this.pageNo}`));
     }
 
+    public addNewTextBlock() {
+        this.showAddNewBlock = true;
+    }
 
     private fetchContentBlockList() {
         this.store.dispatch(new getContent(this.contentID, `?pageSize=${this.defaultPageSize}&page=${this.pageNo}`, true));

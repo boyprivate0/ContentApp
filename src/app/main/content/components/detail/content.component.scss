@@ -7,10 +7,18 @@
     }
 }
 
+.l-container {
+    margin-top: 100px;
+    overflow-y: scroll;
+}
+
+.container {
+    width: 100%;
+}
+
 .list-view-container {
     display: flex; 
     justify-content: center; 
-    margin-top: 100px;
     overflow-y: scroll;
 }
 
@@ -20,4 +28,9 @@ app-list-view-component {
 
 .cursor {
     cursor: pointer;
+}
+
+.add-text-block {
+    display: flex;
+    justify-content: flex-end;
 }

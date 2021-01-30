@@ -5,7 +5,11 @@
 export const environment = {
     production: false,
     hmr: false,
-    API_URL: 'https://public-api.366dev.nl'
+    API_URL: 'https://public-api.366dev.nl',
+    REGION: 'eu-central-1',
+    BUCKET: '366dev01',
+    ACCESS_ID: 'AKIASISFIGT25RRFCW2W',
+    ACCESS_KEY: 'r6B6CeMn48p2mNu9De9kXs9E8uDAs2qagL3yiS30'
 };
 
 /*

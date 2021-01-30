@@ -1,4 +1,4 @@
-import { ContentTextBlock } from './../models/content-text-blocks';
+import { ContentTextBlock, image } from './../models/content-text-blocks';
 import { Content } from './../models/content';
 export function transformData(rows: []) {
     let contentArr: Content[] = [];
@@ -33,10 +33,13 @@ export function transformContentData(rows: []) {
 }
 
 export function transformContentImagesData(rows: []) {
-    let contentTextBlockImagesArr: string[] = [];
+    let contentTextBlockImagesArr: image[] = [];
 
     contentTextBlockImagesArr = rows.map((row: any) => {
-        return row.data.url;
+        return {
+            id: row.id,
+            src: row.data.url
+        };
     })
 
     return contentTextBlockImagesArr;

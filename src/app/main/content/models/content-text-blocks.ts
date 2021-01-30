@@ -6,3 +6,8 @@ export interface ContentTextBlock {
     text?: string | null;
     image?: string | null;
 }
+
+export interface image {
+    id: string,
+    src: string
+}

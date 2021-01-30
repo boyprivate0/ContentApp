@@ -10,7 +10,14 @@ export class getContents {
 export class updateContent {
     static readonly type = '[CONTENT] Update';
 
-    constructor(public payload: ContentTextBlock, public id: string, public selectedIndex: number) {
+    constructor(public payload: ContentTextBlock, public contentID: string, public blockID: string, public selectedIndex: number) {
+    }
+}
+
+export class addContent {
+    static readonly type = '[CONTENT] Add';
+
+    constructor(public payload: ContentTextBlock, public contentID: string) {
     }
 }
 
@@ -25,5 +32,12 @@ export class getContentImages {
     static readonly type = '[CONTENT-IMAGES] Get';
 
     constructor(public id: string, public textID: string) {
+    }
+}
+
+export class deleteContentImage {
+    static readonly type = '[CONTENT] Delete Image';
+
+    constructor(public payload: ContentTextBlock, public contentID: string, public blockID: string, public imageID: string) {
     }
 }

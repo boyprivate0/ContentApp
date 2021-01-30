@@ -1,5 +1,5 @@
 import { FuseWidgetModule } from '@fuse/components/widget/widget.module';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -19,7 +19,6 @@ import { Interceptor } from './content.interceptor';
 import { ContentsComponent } from './components/list/contents.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
-
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -85,7 +84,8 @@ const routes = [
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }
-    ]
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
 export class ContentModule {
