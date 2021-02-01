@@ -21,7 +21,7 @@
                 <button (click)="addNewTextBlock()" class="mat-accent mat-raised-button">
                     Add text-block
                 </button>
-                <app-philip-dialog *ngIf="this.showAddNewBlock" (updatedData)="contentAdd($event)" [modules]="modules" [description]="''" [text]="''" [title]="''" [images]="[]">
+                <app-philip-dialog *ngIf="this.showAddNewBlock" (updatedData)="contentAdd($event)" [headerText]="'Add Text Block'" [modules]="modules" [description]="''" [text]="''" [title]="''" [images]="[]">
                 </app-philip-dialog>
             </div>
 
